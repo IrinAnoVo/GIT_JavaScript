@@ -1,0 +1,102 @@
+// sass: preprocessor css 
+
+@use "variables" as vars;
+@use "variables_2" as vars2;
+@use "mixins" as mx;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.post {
+  &_reactions {
+    &_dislikes {
+      color: vars.$color_1;
+    }
+
+    @include mx.d-flex;
+  }
+
+  &_list {
+    @include mx.d-flex(space-evenly, center, row);
+
+    li {
+      color: gray;
+
+      &.active {
+        color: green;
+      }
+    }
+  }
+
+  padding: 50px;
+
+  // border: 1px solid royalblue;
+
+  // border-width: 1px;
+  // border-style: solid;
+  // border-color: royalblue;
+
+  border: {
+    width: 1px;
+    style: dotted;
+    color: royalblue;
+  }
+
+  width: 80%;
+  margin: 0 auto;
+  // font: {
+  //   weight: bold;
+  //   size: 24px;
+  // }
+
+  &_title {
+    color: vars2.$color_1;
+    text-align: vars.$textPosition;
+  }
+
+  &_content {
+    color: vars.$color_2;
+    text-align: vars.$textPosition;
+  }
+
+  .p_1 {
+    color: vars.$color_1;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  %p_1 {
+    color: vars.$color_1;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  .span_1 {
+    font-weight:  bolder;
+    @extend %p_1;
+  }
+
+}
+
+
+
+.avatar_1 {
+  @include mx.avatar;
+}
+
+@function square($n) {
+  $return: $n * $n;
+  @return result
+}
+
+.avatar_2 {
+  wight: #{scuare};
+}
+
+.my-list {
+
+}
+
