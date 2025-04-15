@@ -1,5 +1,5 @@
 {
-  "name": "lesson_33",
+  "name": "lesson_34",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -23,7 +22,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
-    "sass-embedded": "^1.86.0",
+    "sass-embedded": "^1.86.3",
     "vite": "^6.2.0"
   }
 }
