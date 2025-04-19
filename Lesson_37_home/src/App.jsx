@@ -49,7 +49,7 @@ export const App = () => {
       <div className="content-container">
         <h1>Flashcards</h1>
         <FlashCardForm />
-        <FlashCardList />
+        <FlashCardsList />
       </div>
     </div>
   )
