@@ -1,13 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
+import { createContext, useState, useEffect } from 'react'
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const FlashCardsContext = createContext()
 
-const INITIAL_FLASHCARDS = [];
-
-//заворачиваем function App() в провайдер + дочерние элементы
-export function FlashCardsContext({ children }) {
-  const [flashcards, setFlashcards] = useState(INITIAL_FLASHCARDS)
-    //убираем начальные карточки, они будут загружены из LocalStorage
-    /*
+export function FlashCardsProvider({ children }) {
+  // 1. реализовать localstorage. Загружаем карточки из LocalStorage при инициализации
+  const [flashcards, setFlashcards] = useState(() => {    
+    const saved = localStorage.getItem('flashcards')
+    return saved ? JSON.parse(saved) : [
     {
       id: 1,
       question: 'Привет',
@@ -32,72 +32,45 @@ export function FlashCardsContext({ children }) {
       id: 5,
       question: 'Воздух',
       answer: 'Air'
-    }  
-  ])
-  */
-
-  //загрузка данных из LocalStorage при монтировании
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('flashcards');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          setFlashcards(parsed);
-        }
-      }
-    } catch (error) {
-      console.error('Failed загрузки flashcards из localStorage:', error);
     }
-  }, [])
+  ]
+})
 
-  // ====== сохранение данных в LocalStorage при изменении (добавлении)
+
+//Сохраняем карточки в LocalStorage при каждом изменении
   useEffect(() => {
-    try {
-      localStorage.setItem('flashcards', JSON.stringify(flashcards));
-    } catch (error) {
-      console.error('Failed сохранения flashcards в localStorage:', error);
-    }
+    localStorage.setItem('flashcards', JSON.stringify(flashcards))
   }, [flashcards])
 
-  //переменная для новай карточки (из Арр) по запросу пользователя
-  const addFlashCard = useCallback((card) => {
-    setFlashcards(prev => [
-      ...prev, 
-      {
-        id: Date.now(),
-        question: card.question.trim(),
-        answer: card.answer.trim()
-      }
-    ]);
-  }, [])
+  const addFlashCard = ({ question, answer }) => {
+    const newFlashCard = {
+      id: Date.now(),
+      question: question,
+      answer: answer
+    }
 
-  // Удаление карточки
-  const removeFlashCard = useCallback((id) => {
-    setFlashcards(prev => prev.filter(card => card.id !== id));
-  }, [])
-  
-
-  //контекстные значения
-  const contextValue = {
-    flashcards,
-    addFlashCard,
-    removeFlashCard
-  }
-
-  /*
-    // Исправлено обновление состояния
-    setFlashcards(prev => [
-      ...prev,
+    setFlashcards([
+      ...flashcards,
       newFlashCard
-    ])    
+    ])
   }
-  */
+  //6. реализовать удаление карточки
+  const removeFlashCard = (id) => {
+    setFlashcards(flashcards.filter(card => card.id !== id))
+  }
+  
+  //5. добавить кнопку в карточку при нажатии на которую карточка считается пройденной (completed: boolean)
+  const toggleCompleted = (id) => {
+    setFlashcards(prev => prev.map(card => 
+      card.id === id ? { ...card, completed: !card.completed } : card
+    ));
+  };
 
-  //все данные обёрнутые в FlashCardsContext для передачи через .Provider содержащий дочерние элементы
   return (
-    <FlashCardsContext.Provider value={contextValue}>
+    <FlashCardsContext.Provider value={{
+      flashcards, setFlashcards, addFlashCard, removeFlashCard, toggleCompleted
+    }}>
       {children}
     </FlashCardsContext.Provider>
-  );
+  )
 }

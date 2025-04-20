@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.scss'
 import App from './App.jsx'
 import { FlashCardsProvider } from '../context/FlashCardsProvider.jsx'
+import { ThemeProvider } from '../context/ThemeContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <FlashCardsProvider>
-    <App />
-    </FlashCardsProvider>
+    <ThemeProvider>
+      <FlashCardsProvider>
+        <App />
+      </FlashCardsProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

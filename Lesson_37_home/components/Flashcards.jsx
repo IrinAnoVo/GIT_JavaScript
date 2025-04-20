@@ -1,11 +1,26 @@
 import { FlashCardsContext } from '../context/FlashCardsProvider'
+import FlashCard from './FlashCard'
 import { useContext } from 'react'
-import { FlashCardsList } from '../components/FlashCardList'
 
 export default function FlashCards() {
-  const { flashcards } = useContext(FlashCardsContext)
+  const { flashcards, removeFlashCard, toggleCompleted } = useContext(FlashCardsContext)
 
+//прорисовка карточек с удалением
   return (
-    <FlashCardsList flashcards= {flashcards} />
+    <div className="flash-cards">
+      {flashcards.map(({ id, question, answer, completed }) => {
+        return (
+        <FlashCard 
+        key={id} 
+        id={id} 
+        question={question} 
+        answer={answer}
+        onRemove={removeFlashCard}
+        completed={completed}
+        onToggleCompleted={toggleCompleted}
+        />
+        )
+      })}
+    </div>
   )
 }

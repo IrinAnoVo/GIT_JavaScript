@@ -1,49 +1,59 @@
-import { useState, useContext } from "react";
-import { FlashCardsContext } from "../context/FlashCardsProvider";
+// import(ы) вставляем из App.jsx
+import { useState, useContext } from 'react'
+import { FlashCardsContext } from '../context/FlashCardsProvider'
 
-export const FlashCardForm = () => {
-    const [flashCard, setFlashCard] = useState ({
+export default function FlashcardForm() {
+    const [flashCard, setFlashCard] = useState({
+       question: '',
+       answer: ''
+     }) 
+
+    const { addFlashCard } = useContext(FlashCardsContext)
+     
+    const handleQuestionChange = (e) => {
+        setFlashCard({
+        ...flashCard,
+        question: e.target.value
+        })
+    }
+    const handleAnswerChange = (e) => {
+        setFlashCard({
+        ...flashCard,
+        answer: e.target.value
+        })
+    }
+    const handleFormSubmit = (e) => {
+    e.preventDefault()
+
+    addFlashCard(flashCard)
+
+    setFlashCard({
         question: '',
         answer: ''
-    })
-    const { addFlashCard } = useContext(FlashCardsContext);
+        })
+    }
 
-    const handleQuestionChange = (e) => {
-      setFlashCard(prev => ({ ...prev, question: e.target.value }));
-    };
-  
-    const handleAnswerChange = (e) => {
-      setFlashCard(prev => ({ ...prev, answer: e.target.value }));
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (!flashCard.question.trim() || !flashCard.answer.trim()) return;
-      
-      addFlashCard(flashCard);
-      setFlashCard({ question: '', answer: '' });
-    };
-  
-    //перенос из Арр
     return (
-      <form onSubmit={handleSubmit} className="flashcard-form">
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Question"
-            value={flashCard.question}
-            onChange={handleQuestionChange}
-          />
+        <div className="flashcard-form">
+        <form onSubmit={handleFormSubmit}>
+            <div className="form-group">
+            <input
+                type="text"
+                id="question"
+                placeholder='question'
+                value={flashCard.question}
+                onChange={handleQuestionChange} />
+            </div>
+            <div className="form-group">
+            <input
+                type="text"
+                id="answer"
+                placeholder='answer'
+                value={flashCard.answer}
+                onChange={handleAnswerChange} />
+            </div>
+            <button type="submit">Add Flashcard</button>
+        </form>
         </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Answer"
-            value={flashCard.answer}
-            onChange={handleAnswerChange}
-          />
-        </div>
-        <button type="submit">Add Flashcard</button>
-      </form>
     )
 }
