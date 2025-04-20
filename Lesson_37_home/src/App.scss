@@ -36,8 +36,8 @@
       }
 
       .flash-card {
-        border: 1px solid #ece7e7;
-        background-color: #c8e4cc;
+        border: 1px solid #a3a0a0;
+        background-color: #f578e4;
 
         .back, .front {
           border: 1px solid #a3a0a0;
@@ -45,15 +45,16 @@
         }
 
         &:hover {
-          .back {
-            background-color: #f578e4;
+          .back {            
+            background-color: #b9fdc2;
+            border: 1px solid #4a4a4a;
           }
         }
       }
     }
   }
 
-// темная тема  
+//темная тема  
   &.dark {
     background-color: #6c61d3;
     color: white;
@@ -71,25 +72,27 @@
 
         input {
           background-color: #f3e0e0;
-          border: 1px solid #555;
+          border: 1px solid #1d1d1d;
         }
 
         button {
           background-color: #176eb6;
           color: white;
+          border: 1px solid #4a4a4a;
 
           &:hover {
             background-color: #5711d8;
+            border: 1px solid #4a4a4a;
           }
         }
       }
 
       .flash-card {
-        border: 1px solid #555;
-        background-color: #b3c06a;
+        border: 2px solid #1d1d1d;
+        background-color: #354205;
 
         .back, .front {
-          background-color: #4d4949;
+          background-color: #2b2c27;
           color: #fff;
         }
       }
@@ -220,7 +223,7 @@
 
 //кнопка прохождения карточки и изменение стилей после отметки
       &.completed {
-        border: 2px solid #2ecc71;
+        border: 2px solid #12b60c;
         box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
   
         .inner-card .front,
@@ -249,31 +252,8 @@
         }
     
         &.completed {
-          background-color: #2ecc71;
+          background-color: #354205;
           color: white;
-        }
-      }
-    }
-
-    // изменить стиль по умолчанию и для темной темы, сделать их функциональность одинаковой при клике на кружочек
-    .dark {
-      .flash-card {
-        &.completed {
-          border-color: #27ae60;
-          box-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
-    
-          .inner-card .front,
-          .inner-card .back {
-            background-color: rgba(39, 174, 96, 0.2);
-          }
-        }
-    
-        .complete-btn {
-          border-color: #27ae60;
-    
-          &.completed {
-            background-color: #27ae60;
-          }
         }
       }
     }
