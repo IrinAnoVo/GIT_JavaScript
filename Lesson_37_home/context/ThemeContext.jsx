@@ -17,3 +17,14 @@ export function ThemeProvider({ children }) {
 export function useTheme() {
   return useContext(ThemeContext)
 }
+
+
+/* 
+//шаблон для использования useTheme в компонентах. Обеспечивает
+//сохранение и переключение между темами, и интеграцию со стилями
+import { useTheme } from './ThemeContext'
+
+function MyComponent() {
+  const { isDark, toggleTheme } = useTheme()
+  // ...
+*/
