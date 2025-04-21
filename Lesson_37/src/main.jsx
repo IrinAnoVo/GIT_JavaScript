@@ -6,8 +6,8 @@ import { FlashCardsProvider } from '../context/FlashCardsProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <FlashCardsProvider>
-    <App />
+    <FlashCardsProvider>
+      <App />
     </FlashCardsProvider>
   </StrictMode>,
 )

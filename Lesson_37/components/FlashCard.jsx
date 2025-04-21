@@ -1,4 +1,6 @@
 //создание карточки из Арр
+import React from 'react'
+
 export default function FlashCard({ id, question, answer }) {
   return (
     <div className="flash-card" key={id}>
@@ -11,5 +13,5 @@ export default function FlashCard({ id, question, answer }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
