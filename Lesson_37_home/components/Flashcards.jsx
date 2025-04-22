@@ -5,7 +5,7 @@ import { useContext } from 'react'
 export default function FlashCards() {
   const { flashcards, removeFlashCard, toggleCompleted } = useContext(FlashCardsContext)
 
-//прорисовка карточек с удалением
+//прорисовка карточек с удалением и передаем пропры в компонент FlashCard
   return (
     <div className="flash-cards">
       {flashcards.map(({ id, question, answer, completed }) => {

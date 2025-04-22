@@ -1,11 +1,12 @@
-import FlashCards from '../components/Flashcards'
-import FlashcardForm from '../components/FlashCardForm'
+import FlashCards from '../components/FlashCards'
+import FlashcardForm from '../components/FlashcardForm'
 import { useTheme } from '../context/ThemeContext';
 import './App.scss'
 
 //перезаписываем function App()
 export default function App() {
 
+  //состояние темы
   const { isDark, toggleTheme } = useTheme()
 
   // 1 перехватить событие submit у формы
@@ -75,7 +76,7 @@ return (
       <div className={`app-container ${isDark ? 'dark' : ''}`}>
         <div className="content-container">
           <div className='header'>
-            <h1>Flashcards</h1>
+            <h1>FlashCards</h1>
             <button onClick={toggleTheme} className='theme-toggle'>
               {isDark ? '☀️ Light' : '🌙 Dark'}
             </button>
