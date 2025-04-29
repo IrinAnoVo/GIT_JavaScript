@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "sass-embedded": "^1.87.0"
+  },
+  "dependencies": {
+    "react-icons": "^5.5.0"
+  }
+}
