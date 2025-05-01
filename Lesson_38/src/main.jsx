@@ -2,15 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
 import App from './App.jsx'
-import { FlashCardsProvider } from './context/FlashCardsProvider'
-import { ThemeProvider } from './context/ThemeContext'
+import { FlashCardsProvider } from './context/FlashCardsProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider>
-      <FlashCardsProvider>
-        <App />
-      </FlashCardsProvider>
-    </ThemeProvider>
+    <FlashCardsProvider>
+      <App />
+    </FlashCardsProvider>
   </StrictMode>,
 )
