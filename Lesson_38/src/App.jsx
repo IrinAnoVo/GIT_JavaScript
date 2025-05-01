@@ -1,91 +1,66 @@
 import FlashCards from './components/FlashCards'
-import FlashcardForm from './components/FlashcardForm'
-import { useTheme } from './context/ThemeContext';
 import './App.scss'
+import Form from './components/Form'
+import { useState, memo, useMemo, useCallback } from 'react'
 
-//перезаписываем function App()
-export default function App() {
+// function App() {
+//   return (
+//     <>
+//       <div className="app-container">
+//         <div className="content-container">
+//           <h1>Flashcards</h1>
 
-  //состояние темы
-  const { isDark, toggleTheme } = useTheme()
+//           <Form />
+//           <FlashCards />
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
 
-  // 1 перехватить событие submit у формы
-  // 2 остановить перезагрузку страницы
-  // 3 получить значения из инпутов (с помощью состояний)
-  // 4 выводить в console такой объект
-  // {
-  //   id: Date.now(),
-  //   question: "То что ввел пользователь",
-  //   answer: "То что ввел пользователь",
-  // }
+// memo по умолчанию поможет только в том случае, если передаем примитивные типы данных
+// или же если передаем объект, то он должен быть неизменяемым 
+// (например создан с помощью useState)
+// или же с помощью useMemo
 
-  //2ю декомпозировать на компоненты. переносим в FlashcardForm
-  /*
-  const [flashCard, setFlashCard] = useState({
-    question: '',
-    answer: ''
-  })
-  
+const Card = memo(({ data, handleClick }) => { // HOC- Higher Order Component
+  console.log('Card rendered')
+  return (
+    <div className="card">
+      <h2>Question: {data.question}</h2>
+      <p>Number: {data.number}</p>
+      <button onClick={handleClick}>Show Answer</button>
+    </div>
+  )
+})
 
-  const { addFlashCard } = useContext(FlashCardsContext)
+// 1 - useMemo используем чтобы помочь memo сравнить ссылочные типы данных
+// 2 - useMemo используем чтобы выполнять какую-то тяжелую операцию только когда нам надо
+function App() {
+  const question = '4 + 4 = ?'
+  const [number, setNumber] = useState(0)
+  const [counter, setCounter] = useState(0)
 
-  const handleQuestionChange = (e) => {
-    setFlashCard({
-      ...flashCard,
-      question: e.target.value
-    })
-  }
-  const handleAnswerChange = (e) => {
-    setFlashCard({
-      ...flashCard,
-      answer: e.target.value
-    })
-  }
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
+  const data = useMemo(() => {
+    return {
+      question: question,
+      number: number
+    }
+  }, [number]) // если number изменится, то только тогда будет пересоздан объект data
 
-    addFlashCard(flashCard)
-  
-    setFlashCard({
-      question: '',
-      answer: ''
-    })
-  }
-*/
+  // useCallack возвращает функцию, которая будет пересоздана только тогда, когда изменится number
+  const handleClick = useCallback(() => {
+    console.log(`Answer: ${number + 4}`)
+  }, [number])
 
-//кусок html из середины переносим в FlashcardForm, добавляем компонент <FlashcardForm/> (темы)
-// и создаём  контекст ThemeContext, дорисовываем App.scss
-/*
-return (
-    <>
-      <div className="app-container">
-        <div className="content-container">
-          <h1>Flashcards</h1>
-          <button type="submit">Add Flashcard</button>
-            </form>
-          </div>
-
-          <FlashCards />
-        </div>
-      </div>
-    </>
-
-*/
   return (
     <>
-      <div className={`app-container ${isDark ? 'dark' : ''}`}>
-        <div className="content-container">
-          <div className='header'>
-            <h1>FlashCards</h1>
-            <button onClick={toggleTheme} className='theme-toggle'>
-              {isDark ? '☀️ Light' : '🌙 Dark'}
-            </button>
-          </div>
-
-          <FlashcardForm/>
-          <FlashCards />
-        </div>
-      </div>
+      <button onClick={() => { setCounter(counter + 1) }}>{counter}</button>
+      <button onClick={() => { setNumber(number + 1) }}>Increment</button>
+      <Card data={data} handleClick={handleClick} />
+      {/* <Card question={question} number={number} /> */}
     </>
   )
 }
+
+export default App
