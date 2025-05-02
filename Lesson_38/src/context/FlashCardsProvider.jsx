@@ -1,6 +1,7 @@
-import { createContext, useCallback, useState } from 'react'
+import { createContext, useCallback, useMemo, useState } from 'react'
 
 export const FlashCardsContext = createContext()
+export const FlashCardsActionsContext = createContext() 
 
 export function FlashCardsProvider({ children }) {
   const [flashcards, setFlashcards] = useState([
@@ -50,23 +51,87 @@ export function FlashCardsProvider({ children }) {
     })
   }, [])
 
-  const toggleIsDone = (id) => {
-    const newFlashCards = flashcards.map((flashcard) => {
-      if (flashcard.id === id) {
-        flashcard.isDone = !flashcard.isDone
-        return flashcard
+  const toggleIsDone = useCallback((id) => {
+    setFlashcards (function (prevFlashCards) { 
+      return prevFlashCards.map((flashcard) => {
+        if (flashcard.id === id) {
+          return {
+            ...flashcard,
+          isDone: !flashcard.isDone          
+        }
       }
       return flashcard
+      })
     })
+  }, [])
 
-    setFlashcards(newFlashCards)
-  }
+// // 0x000xbs123
+// const obj = {
+// id: 4,
+// question: 'Еда',
+// answer: 'Food',
+// isDone: false
+// }
+// obj.isDone = !obj.isDone // мутабельный метод (значение не изменилось и адрес тот же)
+// // 0x000xbs123
+
+// const obj1 = {
+// ...obj,
+// isDone: !obj.isDone // иммутабельный метод (значение изменилось и адрес новый)
+// }
+// // 0x000bs5646
+
+// 0x000xbs123
+// { 
+// id: 4,
+// question: 'Еда',
+// answer: 'Food',
+// isDone: false
+// }
+
+// ===Мутабельные изменения (компонент поменялся, а адрес тот же)
+// version 1
+// flashcard.isDone = !flashcard.isDone
+// 0x000xbs123
+// { 
+// id: 4,
+// question: 'Еда',
+// answer: 'Food',
+// isDone: true
+// }
+
+// ===Имутабельные изменения (компонент поменялся и адрес поменялся)
+// version 2
+// {
+// ...flashcard,
+// isDone: !flashcard.isDone
+// }
+// 0x000xbs5646
+// { 
+// id: 4,
+// question: 'Еда',
+// answer: 'Food',
+// isDone: true
+// }
+
+  const state = useMemo(() => {
+    return {
+      flashcards
+    }
+  }, [flashcards])
+
+  const actions = useMemo(() => {
+    return {
+      addFlashCard,
+      toggleIsDone
+    }
+  }, [addFlashCard, toggleIsDone])
 
   return (
-    <FlashCardsContext.Provider value={{
-      flashcards, setFlashcards, addFlashCard, toggleIsDone
-    }}>
-      {children}
+    <FlashCardsContext.Provider value={state}>
+      <FlashCardsActionsContext.Provider value={actions}>
+        {children}
+      </FlashCardsActionsContext.Provider>
     </FlashCardsContext.Provider>
   )
 }
