@@ -1,3 +1,5 @@
+//оптимизация
+
 import FlashCards from './components/FlashCards'
 import './App.scss'
 import Form from './components/Form'

@@ -1,15 +1,18 @@
-import { useState } from 'react'
 import './App.css'
+import { store } from './store'
+import { useSelector } from 'react-redux'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const counter = useSelector((state) => state.count)
 
   return (
-    <>
-      <button onClick={() => setCount((count) => count + 1)}>
-        count is {count}
-      </button>
-    </>
+      <button onClick={
+        () => store.dispatch({
+          type: 'increment'
+        })
+      }>
+        count is {counter}
+      </button>    
   )
 }
 
