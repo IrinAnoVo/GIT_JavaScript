@@ -6,13 +6,13 @@ function App() {
   const counter = useSelector((state) => state.count)
 
   return (
-      <button onClick={
-        () => store.dispatch({
-          type: 'increment'
-        })
-      }>
-        count is {counter}
-      </button>    
+    <button onClick={
+      () => store.dispatch({
+        type: 'increment'
+      })
+    }>
+      count is {counter}
+    </button>
   )
 }
 

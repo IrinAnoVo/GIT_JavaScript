@@ -1,9 +1,9 @@
 import { memo, useContext } from "react"
-import { FlashCardsContext } from "../context/FlashCardsProvider"
+import { FlashCardsActionsContext } from "../context/FlashCardsProvider"
 
 function FlashCard({ id, question, answer, isDone }) {
   console.log(`Flashcard ${id} rendered`)
-  const { toggleIsDone } = useContext(FlashCardsContext)
+  const { toggleIsDone } = useContext(FlashCardsActionsContext)
   return (
     <div onClick={() => {
       toggleIsDone(id)

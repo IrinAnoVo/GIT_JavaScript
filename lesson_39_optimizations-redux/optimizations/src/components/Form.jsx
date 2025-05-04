@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { FlashCardsContext } from '../context/FlashCardsProvider'
+import { FlashCardsActionsContext } from '../context/FlashCardsProvider'
 
 export default function Form() {
   const [fleshCard, setFlashCard] = useState({
@@ -7,7 +7,7 @@ export default function Form() {
     answer: ''
   })
 
-  const { addFlashCard } = useContext(FlashCardsContext)
+  const { addFlashCard } = useContext(FlashCardsActionsContext)
 
   const handleQuestionChange = (e) => {
     setFlashCard({
