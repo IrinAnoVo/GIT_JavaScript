@@ -1,8 +1,8 @@
 import React from 'react'
-import { useProducts } from '../context/ProductProvider';
+import { useProductActions } from '../context/ProductProvider';
 
 export default function SortPanel() {
-  const { sortProducts } = useProducts();
+  const { sortProducts } = useProductActions();
   console.log("SortPanel rendering");
 
   return (

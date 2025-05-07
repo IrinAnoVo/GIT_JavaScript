@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useMemo, useCallback } from 'react
 import products from '../products.json';
 
 const ProductContext = createContext();
+const ProductContextActions = createContext();
 
 // Количество продуктов (можно изменить до 1000)
 const initialProducts = products.slice(0, 6);
@@ -71,18 +72,21 @@ export const ProductProvider = ({ children }) => {
     };
   }, [products]);   //зависимость
 
-
-const contextValue = useMemo(() => ({
+const state = useMemo(() => ({
   products,
-        changeQuantity,
-        changePrice,
-        sortProducts,
-        statistics  //уже вычислели значение statistics
-}), [products, changePrice, changeQuantity, sortProducts, statistics])
+  statistics  //уже вычислели значение statistics
+}), [products, statistics])
+
+const actions = useMemo(() => ({
+  changePrice, changeQuantity, sortProducts
+}), [changePrice, changeQuantity, sortProducts])
+
 
   return (
-    <ProductContext.Provider value={contextValue}>
-      {children}
+    <ProductContext.Provider value={state}>
+      <ProductContextActions.Provider value={actions}>
+        {children}
+      </ProductContextActions.Provider>
     </ProductContext.Provider>
   );
 };
@@ -96,3 +100,12 @@ export const useProducts = () => {
   }
   return context;
 };
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const useProductActions = () => {
+  const context = useContext(ProductContextActions);
+  if (!context) {
+    throw new Error("useProducts must be used within a ProductProvider");
+  }
+  return context;
+}
