@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux' 
-import { DecrementAction, GreetAction } from './store';
+import { DecrementAction, IncrementAction, GreetAction } from './store';
 
 function App() {
   console.log(`App render`);
@@ -13,12 +13,11 @@ function App() {
   return (
     <>
       <button onClick={
-        () => dispatch({
-          type: 'increment'
-        })
+        () => dispatch(IncrementAction())
       }>
         Increment
       </button>
+      
       <button onClick={
         () => dispatch(DecrementAction())
       }>

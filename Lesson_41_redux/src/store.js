@@ -1,5 +1,5 @@
 // redux - monostore
-import { configureStore, createAction } from "@reduxjs/toolkit"
+import { configureStore, createAction, createReducer } from "@reduxjs/toolkit"
 
 const initialState = {
   count: 0,
@@ -12,7 +12,8 @@ const initialState = {
 // reducer это функция, которая занимается изменением состояния на основе action -> получает действие и значение, потом возвращает новое состояние меняя его иммютабельно
 // при первом открытии приложения state(предыдущее состояние) равен null
 // чтобы не передавать null в reducer, мы передаем по умолчанию initialState
-const reducer = (state = initialState, action) => {
+
+/*const reducer = (state = initialState, action) => {
   //if (action.type === "increment") {
   // return {
   //  ...state,
@@ -42,10 +43,28 @@ const reducer = (state = initialState, action) => {
         return state
    }
 }
+   */
+
+const reducer = createReducer(initialState, (builder) => {
+  builder
+  .addCase("increment", (state) => {
+    state.count += 1
+  })
+  .addCase("decrement", (state) => {
+    state.count -= 1
+  })
+  .addCase("greet", (state, action) => {
+    console.log(action);
+
+    console.log(`Hello, ${action.payload}`)
+      return state
+  })
+})
 
 export const GreetAction = createAction('greet')
 
 export const DecrementAction = createAction('decrement')
+export const IncrementAction = createAction('increment')
 
 export const store = configureStore({
   reducer,
