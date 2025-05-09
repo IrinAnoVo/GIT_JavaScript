@@ -1,9 +1,10 @@
 import React from 'react'
-import { useProducts } from '../context/ProductProvider';
+import { useDispatch } from 'react-redux'
+import { StatisticProductAction } from '../stote';
 
-export default function Statistics() {
-  const { statistics } = useProducts();     //же получаем вычисление, переписываем все stats на statistics 
+export default function Statistics() {    //же получаем вычисление, переписываем все stats на statistics 
   console.log("Statistics rendering");
+  const dispatch = useDispatch();
 
 
   return (
@@ -12,23 +13,23 @@ export default function Statistics() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <div className="p-3 bg-white rounded shadow-sm">
           <div className="text-sm text-gray-500">Количество продуктов</div>
-          <div className="text-2xl font-bold">{statistics.totalProducts}</div>
+          <div className="text-2xl font-bold">{dispatch(StatisticProductAction).totalProducts}</div>
         </div>
         <div className="p-3 bg-white rounded shadow-sm">
           <div className="text-sm text-gray-500">Общая стоимость</div>
-          <div className="text-2xl font-bold">${statistics.totalBeforeDiscount.toFixed(2)}</div>
+          <div className="text-2xl font-bold">${dispatch(StatisticProductAction).totalBeforeDiscount.toFixed(2)}</div>
         </div>
         <div className="p-3 bg-white rounded shadow-sm">
           <div className="text-sm text-gray-500">Общая скидка</div>
-          <div className="text-2xl font-bold text-red-500">-${statistics.totalDiscounts.toFixed(2)}</div>
+          <div className="text-2xl font-bold text-red-500">-${dispatch(StatisticProductAction).totalDiscounts.toFixed(2)}</div>
         </div>
         <div className="p-3 bg-white rounded shadow-sm">
           <div className="text-sm text-gray-500">Итоговая стоимость</div>
-          <div className="text-2xl font-bold text-green-600">${statistics.finalTotal.toFixed(2)}</div>
+          <div className="text-2xl font-bold text-green-600">${dispatch(StatisticProductAction).finalTotal.toFixed(2)}</div>
         </div>
         <div className="p-3 bg-white rounded shadow-sm">
           <div className="text-sm text-gray-500">Средняя цена</div>
-          <div className="text-2xl font-bold">${statistics.averagePrice.toFixed(2)}</div>
+          <div className="text-2xl font-bold">${dispatch(StatisticProductAction).averagePrice.toFixed(2)}</div>
         </div>
       </div>
     </div>

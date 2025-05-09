@@ -1,9 +1,9 @@
 import React from 'react'
-import { useProducts } from '../context/ProductProvider';
 import Product from './Product';
+import { useSelector } from 'react-redux';
 
 export default function ProductList() {
-  const { products } = useProducts();
+  const products = useSelector(state => state.products);
   console.log("ProductList rendering");
 
   return (
