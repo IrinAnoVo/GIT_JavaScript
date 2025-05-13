@@ -28,7 +28,7 @@ const App = () => {
         </p>
       </header>
 
-      {/* <Statistics /> */}
+      {<Statistics />}
       <SortPanel />
       <ProductList />
     </div>

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { IncrementPriceAction, IncrementQuantityAction, StatisticProductAction } from '../stote.js';
+import { IncrementPriceAction, IncrementQuantityAction } from '../store.js';
 import { useDispatch } from 'react-redux'
 
 function Product({ product }) {
@@ -40,7 +40,10 @@ function Product({ product }) {
           <span>Количество:</span>
           <div className="flex items-center">
             <button
-              onClick={() => dispatch(IncrementQuantityAction)}
+              onClick={() => dispatch(IncrementQuantityAction({
+                id: product.id,
+                amount: -1
+              }))}
               className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-l"
             >
               -
@@ -49,7 +52,10 @@ function Product({ product }) {
               {product.quantity}
             </span>
             <button
-              onClick={() => dispatch(IncrementQuantityAction)}
+              onClick={() => dispatch(IncrementQuantityAction({
+                id: product.id,
+                amount: 1
+              }))}
               className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-r"
             >
               +
@@ -61,13 +67,19 @@ function Product({ product }) {
           <span>Цена:</span>
           <div className="flex">
             <button
-              onClick={() => dispatch(IncrementPriceAction)}
+              onClick={() => dispatch(IncrementPriceAction({
+                id: product.id,
+                amount: -10
+              }))}
               className="px-2 py-1 bg-red-200 rounded-l"
             >
               -$10
             </button>
             <button
-              onClick={() => dispatch(IncrementPriceAction)}
+              onClick={() => dispatch(IncrementPriceAction({
+                id: product.id,
+                amount: 10
+              }))}
               className="px-2 py-1 bg-green-200 rounded-r"
             >
               +$10

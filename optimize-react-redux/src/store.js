@@ -36,6 +36,22 @@ export const SortProductsAction = createAction('setProducts')
 export const InitializeProductsAction = createAction('initializeProducts')
 export const StatisticProductAction = createAction('statisticProduct')
 
+const calculateStatistics = (products) => {
+    const totalProducts = products.reduce((sum, product) => sum + product.quantity, 0);
+    const totalBeforeDiscount = products.reduce((sum, product) => sum + product.price * product.quantity, 0);
+    const totalDiscounts = products.reduce((sum, product) => sum + (product.discount || 0) * product.quantity, 0);
+    const finalTotal = totalBeforeDiscount - totalDiscounts;
+    const averagePrice = totalProducts > 0 ? totalBeforeDiscount / totalProducts : 0;
+
+    return {
+        totalProducts,
+        totalBeforeDiscount,
+        totalDiscounts,
+        finalTotal,
+        averagePrice
+    };
+}
+
 // 3. Создать редюсер, который будет обрабатывать эти экшены и обновлять состояние 
 // используя createReducer
 // 4. Создать store и подключить его к приложению
@@ -50,6 +66,7 @@ const productReducer = createReducer(initialState, (builder) => {
             product.price += action.payload.amount
             }
         })
+        state.stats = calculateStatistics(state.products);
     })
 
     .addCase(IncrementQuantityAction, (state, action) => {  //мутабельно
@@ -58,6 +75,7 @@ const productReducer = createReducer(initialState, (builder) => {
             { ...product, quantity: Math.max(1, product.quantity + action.payload.amount) } :
             product
         )
+        state.stats = calculateStatistics(state.products);
     })
     
     .addCase(SortProductsAction, (state, action) => {
@@ -78,23 +96,8 @@ const productReducer = createReducer(initialState, (builder) => {
 
     .addCase(InitializeProductsAction, (state, action) => {
         state.products = action.payload.products;
-    })
-
-    .addCase(StatisticProductAction, (state) => {
-        const totalProducts = state.products.reduce((sum, product) => sum + product.quantity, 0);
-        const totalBeforeDiscount = state.products.reduce((sum, product) => sum + product.price * product.quantity, 0);
-        const totalDiscounts = state.products.reduce((sum, product) => sum + (product.discount || 0) * product.quantity, 0);
-        const finalTotal = totalBeforeDiscount - totalDiscounts;
-        const averagePrice = totalProducts > 0 ? totalBeforeDiscount / totalProducts : 0;
-
-        state.stats = {
-            totalProducts,
-            totalBeforeDiscount,
-            totalDiscounts,
-            finalTotal,
-            averagePrice
-        };
-    })
+        state.stats = calculateStatistics(state.products);
+    }) 
 
 })
         

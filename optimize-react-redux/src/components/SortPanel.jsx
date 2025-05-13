@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { SortProductsAction } from '../stote';
+import { SortProductsAction } from '../store';
 
 export default function SortPanel() {
   console.log("SortPanel rendering");
@@ -11,19 +11,22 @@ export default function SortPanel() {
       <h3 className="font-bold mb-3 text-lg">Сортировка продуктов:</h3>
       <div className="flex flex-wrap gap-2">
         <button
-          onClick={() => dispatch(SortProductsAction('name'))}
+          onClick={() => dispatch(SortProductsAction({
+            criteria: 'name'}))}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         >
           По имени
         </button>
         <button
-          onClick={() => dispatch(SortProductsAction('price'))}
+          onClick={() => dispatch(SortProductsAction({
+            criteria: 'price'}))}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         >
           Пo цене
         </button>
         <button
-          onClick={() => dispatch(SortProductsAction('quantity'))}
+          onClick={() => dispatch(SortProductsAction({
+            criteria: 'quantity'}))}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         >
           Пo количеству
