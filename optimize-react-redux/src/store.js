@@ -108,8 +108,7 @@ export const store = configureStore({
 store.dispatch(InitializeProductsAction({
     products: initialProducts
 }))
-
-store.dispatch(StatisticProductAction())  
+  
 
 // Попробовать удалить весь store и самостоятельно его реализовать.
 // Добавитт в store статистику и исправить компонент статистики чтобы он использовал redux
