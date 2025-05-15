@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { SortProductsAction } from '../store/products.slice';
-
+ 
 export default function SortPanel() {
   console.log("SortPanel rendering");
   const dispatch = useDispatch();

@@ -35,7 +35,7 @@ function Product({ product }) {
           )}
         </div>
       </div>
-
+ 
       <div className="p-3 border-t bg-gray-50">
         <div className="flex justify-between items-center mb-2">
           <span>Количество:</span>

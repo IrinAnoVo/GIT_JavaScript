@@ -3,8 +3,8 @@ import { getStats } from '../store/products.slice';
 
 export default function Statistics() {
   console.log("Statistics rendering");
-
-  const stats = useSelector(state => getStats(state));
+ 
+  const stats = useSelector(getStats);
 
   return (
     <div className="mb-8 p-6 border rounded-lg bg-blue-50 shadow-sm">

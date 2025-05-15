@@ -1,3 +1,4 @@
+import Cart from './components/Cart';
 import ProductList from './components/ProductList';
 import SortPanel from './components/SortPanel';
 import Statistics from './components/Statistics';
@@ -29,6 +30,7 @@ const App = () => {
       </header>
 
       <Statistics />
+      <Cart/>
       <SortPanel />
       <ProductList />
     </div>

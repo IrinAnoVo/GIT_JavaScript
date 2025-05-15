@@ -15,13 +15,16 @@
 // 3 - Создать два редюсера: addProductToCart и removeProductFromCart
 // 4 - Экспорировать редюсер и экшены из слайса
 // 5 - Инициализировать слайс корзины в store
-
+ 
 import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: [],
+  },
+  selectors: {
+    getCartItems: (state) => state.items
   },
   reducers: {
     addProductToCart: (state, action) => {
@@ -36,9 +39,11 @@ const cartSlice = createSlice({
       }
     },
     removeProductFromCart: (state, action) => {
+      state.items = state.items.filter(item => item.id !== action.payload.id);
     },
   },
 });
+export const { getCartItems } = cartSlice.selectors;
 
 export const { addProductToCart, removeProductFromCart } = cartSlice.actions;
 

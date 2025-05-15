@@ -3,7 +3,7 @@ import Product from './Product';
 import { useSelector } from 'react-redux';
 
 export default function ProductList() {
-  const products = useSelector(state => getProducts(state));
+  const products = useSelector(getProducts);
   console.log("ProductList rendering");
 
   return (
