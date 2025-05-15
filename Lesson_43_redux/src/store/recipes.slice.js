@@ -4,7 +4,6 @@ const recipesSlice = createSlice({
   name: 'recipes',
   initialState: {
     items: [],
-    status: 'idle'   //Loading
   },
   selectors: {
     getAllRecipes: (state) => state.items
@@ -12,12 +11,6 @@ const recipesSlice = createSlice({
   reducers: {
     setRecipes: (state, action) => {
       state.items = action.payload
-    },
-    setPending: (state) => {    //loading
-      state.status = 'pending'
-    },
-    setSuccess: (state) => {    //Loading
-      state.status = 'success'
     },
   }
 })
