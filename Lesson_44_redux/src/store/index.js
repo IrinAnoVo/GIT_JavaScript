@@ -8,7 +8,7 @@ import recipesSlice from './recipes.slice'
 //     }
 //   }
 // }
-const loggerMiddleware = (store) => (next) => (action) => {
+const loggerMiddleware = /*(store) =>*/ (next) => (action) => {
   console.group(action.type)
   console.log('dispatching', action)
   console.groupEnd()
