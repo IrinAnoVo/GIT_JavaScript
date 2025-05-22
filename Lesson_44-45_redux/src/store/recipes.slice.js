@@ -15,7 +15,7 @@ export const getRecipes = createAsyncThunk(
   {
     condition: (arg, store) => {
       const status = store.getState().recipes.status
-      if (status !== 'idle')     // если статус idle, то можно делать запрос
+      if (status === 'idle')     // если статус idle, то можно делать запрос
       return false
     },
   }

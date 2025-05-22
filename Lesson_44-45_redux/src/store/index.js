@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import recipesSlice from './recipes.slice'
-import categoriesSlice from './categories.slice'
 
 // function loggerMiddleware(store) {
 //   return function (next) {
@@ -9,7 +8,7 @@ import categoriesSlice from './categories.slice'
 //     }
 //   }
 // }
-const loggerMiddleware = () => (next) => (action) => {
+const loggerMiddleware = (store) => (next) => (action) => {
   console.group(action.type)
   console.log('dispatching', action)
   console.groupEnd()
@@ -26,7 +25,6 @@ const loggerMiddleware = () => (next) => (action) => {
 const store = configureStore({
   reducer: {
     [recipesSlice.name]: recipesSlice.reducer,
-    [categoriesSlice.name]: categoriesSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(loggerMiddleware),

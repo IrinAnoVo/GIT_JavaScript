@@ -33,15 +33,9 @@ const recipesSlice = createSlice({
     } 
   },
   reducers: {
-    // setRecipes: (state, action) => {
-    //   state.items = action.payload
-    // },
-    // setPending: (state) => {
-    //   state.status = 'pending'
-    // },
-    // setSuccess: (state) => {
-    //   state.status = 'success'
-    // },
+   setSelectedRecipe: (state, action) => {
+      state.selectedRecipe = action.payload    
+    }
   },
   extraReducers: (builder) => {
     builder

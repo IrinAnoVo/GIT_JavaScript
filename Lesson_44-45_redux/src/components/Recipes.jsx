@@ -1,9 +1,7 @@
 import recipesSlice, { getRecipes } from "../store/recipes.slice"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
-import { getCategories } from "../store/categories.slice"
 // import { getRecipes } from "../api"
-import RecipeCard from "./RecipeCard"
 
 export default function Recipes() {
   // Получить список рецептов из состояния Redux с помощью useSelector
@@ -14,8 +12,7 @@ export default function Recipes() {
   useEffect(() => {
     // getRecipes(dispatch, getState) // Вызвать функцию getRecipes
     // dispatch(getRecipes) // Вызвать функцию getRecipes внутри Redux с использованием thunk
-    dispatch(getRecipes())
-    dispatch(getCategories()) // Вариант с использованием createAsyncThunk
+    dispatch(getRecipes()) // Вариант с использованием createAsyncThunk
   }, [dispatch]) // Запускать эффект только при изменении dispatch и status
 
   return (
@@ -23,10 +20,18 @@ export default function Recipes() {
       {status === 'pending' && <h1>Loading...</h1>}
       <div className='recipes'>
         {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
+          <div className="recipe-card" key={recipe.id}>
+            <div className="recipe-card__image">
+              <img src={recipe.image} alt={recipe.name} />
+            </div>
+            <div className="recipe-card__content">
+              <h2 className="recipe-card__title">{recipe.name}</h2>
+              <p className="recipe-card__description">{recipe.instructions.join(' ')}</p>
+              <button className="recipe-card__button">View Recipe</button>
+            </div>
+          </div>
         ))}
       </div>
     </>
   )
-};
-
+}
