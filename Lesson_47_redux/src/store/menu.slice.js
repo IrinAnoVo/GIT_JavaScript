@@ -1,36 +1,37 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-export const getCategories = createAsyncThunk(
-  "categories/getCategories",
+export const getMenu = createAsyncThunk(
+  "menu/getMenu",
   async () => {
     try {
-      const result = await fetch('https://dummyjson.com/recipes/tags')
+      const result = await fetch('https://dummyjson.com/recipes/meal-type/snack')
       const data = await result.json()
 
       return data
     } catch (error) {
-      console.error('Error fetching categories:', error)
+      console.error('Error fetching menu:', error)
     }
   },
   {
     condition: (arg, store) => {
-      const status = store.getState().categories.status
+      const status = store.getState().menu.status
       if (status !== 'idle')     // если статус idle, то можно делать запрос
         return false
     },
   }
 )
 
-const categoriesSlice = createSlice({
-    name: 'categories',
+const menuSlice = createSlice({
+    name: 'menu',
     initialState: {
         items: [],
         status: 'idle' // pending, success, error
     }, 
-    selectors: {
-        getCategories: function (state) {
+    selectors: {        
+        getMenu: function (state) {
         return state.items
         }
+        
     },
     reducers: {
         // setCategories: (state, action) => {
@@ -45,17 +46,17 @@ const categoriesSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(getCategories.pending, (state) => {
+        .addCase(getMenu.pending, (state) => {
             state.status = 'pending'
         })
-        .addCase(getCategories.fulfilled, (state, action) => {
+        .addCase(getMenu.fulfilled, (state, action) => {
             state.status = 'success'
             state.items = action.payload
         })
-        .addCase(getCategories.rejected, (state) => {
+        .addCase(getMenu.rejected, (state) => {
             state.status = 'error'
         })
     } 
 })
 
-export default categoriesSlice;  
+export default menuSlice;  

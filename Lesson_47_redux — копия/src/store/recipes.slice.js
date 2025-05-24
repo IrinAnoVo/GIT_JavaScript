@@ -35,20 +35,6 @@ export const getRecipesByCategory = createAsyncThunk(
   },
 )
  
-export const getRecipesByMenu = createAsyncThunk(
-  "menu/getRecipesByMenu",
-  async (menu) => {
-    try {
-      const result = await fetch(`https://dummyjson.com/recipes/tag/${menu}`)
-      const data = await result.json()
-
-      return data.recipes
-    } catch (error) {
-      console.error('Error fetching recipes by menu:', error)
-    }
-  },
-)
- 
 const recipesSlice = createSlice({
   name: 'recipes',
   initialState: {
@@ -56,9 +42,7 @@ const recipesSlice = createSlice({
     status: 'idle', // pending, success, error
     selectedRecipe: null,
     byCategory: [],
-    loadingByCategory: false,
-    byMenu: [],
-    loadingByMenu: false,
+    loadingByCategory: false
   },
   selectors: {
     getAllRecipes: function (state) {
@@ -69,7 +53,7 @@ const recipesSlice = createSlice({
   reducers: {
    setSelectedRecipe: (state, action) => {
       state.selectedRecipe = action.payload    
-    } 
+    }
   }, 
   extraReducers: (builder) => {
     builder
@@ -92,18 +76,7 @@ const recipesSlice = createSlice({
       })
       .addCase(getRecipesByCategory.rejected, (state) => {
         state.loadingByCategory = false
-      }) 
-      .addCase(getRecipesByMenu.pending, (state) => {
-        state.loadingByMenu = true
       })
-      .addCase(getRecipesByMenu.fulfilled, (state, action) => {
-        state.loadingByMenu = false
-        state.byMenu = action.payload 
-      })
-      .addCase(getRecipesByMenu.rejected, (state) => {
-        state.loadingByMenu = false
-      }) 
-      
   }
 })
 

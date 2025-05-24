@@ -21,7 +21,7 @@ useEffect(() => {
         {status === 'pending' && <h1>Loading...</h1>}
         <Grid container spacing={2} columns={6}>
             {categories.map((category) => (
-            <Grid key={category} size={1}>
+            <Grid key={category.id} size={1}>
               <Box onClick={() => {
                 dispatch(getRecipesByCategory(category))
                 dispatch(setCurrentPage('selected-category'))
@@ -29,8 +29,8 @@ useEffect(() => {
               sx= {{
                 paddingY: '50px', 
                 textAlign: 'center', 
-                '&:hover': { 
-                  backgroundColor: 'lightblue',
+                '&:hover': 
+                { backgroundColor: 'lightblue',
                   color: 'white',
                   cursor: 'pointer'
                  },
@@ -43,5 +43,3 @@ useEffect(() => {
         </>
     )
 };
-
- 
