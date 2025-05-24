@@ -3,12 +3,11 @@ import { useEffect } from "react"
 import { Box, Grid } from "@mui/material" 
 import { setCurrentPage } from "../store/page.slice"
 import { getRecipesByMenu } from "../store/recipes.slice"
-import { selectMenu, getMenuStatus } from "../store/menu.slice"
-import { getMenu } from "../store/menu.slice"
+import menuSlice, { getMenu } from "../store/menu.slice"
 
 export default function Menus() {
-  const menu = useSelector(selectMenu)
-  const status = useSelector(getMenuStatus)
+  const menu = useSelector(menuSlice.selectors.getMenu)
+  const status = useSelector((state) => state.menu.status) // Получить статус загрузки из состояния Redux
   const dispatch = useDispatch()
 
   useEffect(() => {
