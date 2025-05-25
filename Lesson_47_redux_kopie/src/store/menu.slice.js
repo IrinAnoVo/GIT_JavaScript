@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const getCategories = createAsyncThunk(
-  "categories/getCategories",
+export const getMenu = createAsyncThunk(
+  "menu/getMenu",
   async () => {
     try {
       const result = await fetch("https://dummyjson.com/recipes/tags");
@@ -9,19 +9,19 @@ export const getCategories = createAsyncThunk(
 
       return data;
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error("Error fetching menu:", error);
     }
   },
   {
     condition: (arg, store) => {
-      const status = store.getState().categories.status;
+      const status = store.getState().menu.status;
       if (status !== "idle") return false; // Если статус не idle, то ничего не делать
     },
   }
 )
 
-const categoriesSlice = createSlice({
-  name: "categories",
+const menuSlice = createSlice({
+  name: "menu",
   initialState: {
     items: [],
     status: "idle", // pending, success, error
@@ -29,23 +29,23 @@ const categoriesSlice = createSlice({
   reducers: {
   },
   selectors: {
-    getAllCategories: function (state) {
+    getAllMenuItems: function (state) {
       return state.items;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getCategories.pending, (state) => {
+      .addCase(getMenu.pending, (state) => {
         state.status = 'pending'
       })
-      .addCase(getCategories.fulfilled, (state, action) => {
+      .addCase(getMenu.fulfilled, (state, action) => {
         state.status = 'success'
         state.items = action.payload
       })
-      .addCase(getCategories.rejected, (state) => {
+      .addCase(getMenu.rejected, (state) => {
         state.status = 'error'
       })
   }
 })
 
-export default categoriesSlice;
+export default menuSlice;

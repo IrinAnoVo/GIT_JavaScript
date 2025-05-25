@@ -15,14 +15,13 @@ export const getRecipes = createAsyncThunk(
   {
     condition: (arg, store) => {
       const status = store.getState().recipes.status
-      if (status !== 'idle')     // если статус idle, то можно делать запрос
-        return false
+      if (status !== 'idle') return false // Если статус не idle, то ничего не делать
     },
   }
 )
 
 export const getRecipesByCategory = createAsyncThunk(
-  "categories/getRecipesByCategory",
+  "recipes/getRecipesByCategory",
   async (category) => {
     try {
       const result = await fetch(`https://dummyjson.com/recipes/tag/${category}`)
@@ -32,29 +31,29 @@ export const getRecipesByCategory = createAsyncThunk(
     } catch (error) {
       console.error('Error fetching recipes by category:', error)
     }
-  },
+  }
 )
- 
+
 const recipesSlice = createSlice({
   name: 'recipes',
   initialState: {
-    items: [],
+    items: [], // Все рецепты
     status: 'idle', // pending, success, error
-    selectedRecipe: null,
-    byCategory: [],
+    selectedRecipe: null, // Для хранения выбранного рецепта
+    byCategory: [], // Рецепты выбранной категории
     loadingByCategory: false
   },
   selectors: {
     getAllRecipes: function (state) {
       return state.items
     },
-    getByRecepies: (state) => state.byCategory,
+    getByCategory: (state) => state.byCategory
   },
   reducers: {
-   setSelectedRecipe: (state, action) => {
-      state.selectedRecipe = action.payload    
+    setSelectedRecipe: (state, action) => {
+      state.selectedRecipe = action.payload
     }
-  }, 
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getRecipes.pending, (state) => {

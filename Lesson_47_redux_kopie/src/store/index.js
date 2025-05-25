@@ -3,7 +3,6 @@ import recipesSlice from './recipes.slice'
 import categoriesSlice from './categories.slice'
 import pageSlice from './page.slice'
 
-
 // function loggerMiddleware(store) {
 //   return function (next) {
 //     return function (action) {

@@ -1,9 +1,9 @@
 import recipesSlice, { getRecipes } from "../store/recipes.slice"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
-// import { getRecipes } from "../api"
 import RecipeCard from "./RecipeCard"
 import { Grid } from "@mui/material"
+// import { getRecipes } from "../api"
 
 export default function Recipes() {
   // Получить список рецептов из состояния Redux с помощью useSelector
@@ -24,11 +24,9 @@ export default function Recipes() {
         {recipes.map((recipe) => (
           <Grid key={recipe.id} size={1}>
             <RecipeCard recipe={recipe} />
-          </Grid>         
+          </Grid>
         ))}
       </Grid>
     </>
   )
-}; 
-
-    
+}
