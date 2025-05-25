@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import RecipeCard from "./RecipeCard"
 import { Grid } from "@mui/material"
+import RecipeModal from "./RecipeModal"
 // import { getRecipes } from "../api"
 
 export default function Recipes() {
@@ -20,13 +21,14 @@ export default function Recipes() {
   return (
     <>
       {status === 'pending' && <h1>Loading...</h1>}
-      <Grid container spacing={2} columns={5}>
+      <Grid container spacing={2} columns={4}>
         {recipes.map((recipe) => (
           <Grid key={recipe.id} size={1}>
             <RecipeCard recipe={recipe} />
           </Grid>
         ))}
       </Grid>
+      <RecipeModal />
     </>
   )
 }
