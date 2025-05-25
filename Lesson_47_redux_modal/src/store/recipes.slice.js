@@ -19,7 +19,7 @@ export const getRecipes = createAsyncThunk(
     },
   }
 )
-
+ 
 export const getRecipesByCategory = createAsyncThunk(
   "recipes/getRecipesByCategory",
   async (category) => {
@@ -32,7 +32,7 @@ export const getRecipesByCategory = createAsyncThunk(
       console.error('Error fetching recipes by category:', error)
     }
   }
-)
+) 
 
 const recipesSlice = createSlice({
   name: 'recipes',
