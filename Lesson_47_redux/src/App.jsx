@@ -5,8 +5,6 @@ import { getCurrentPage } from "./store/page.slice"
 import Categories from "./components/Categories"
 import CategoryRecipes from "./components/CategoryRecipes"
 import { ToastContainer } from "react-toastify"
-import Menu from "./components/Menu"
-import MenuRecipes from "./components/MenuRecipes"
 
 function App() {
   const currentPage = useSelector(getCurrentPage)
@@ -17,8 +15,6 @@ function App() {
       {currentPage === 'recipes' && <Recipes />}
       {currentPage === 'categories' && <Categories />}
       {currentPage === 'selected-category' && <CategoryRecipes />}
-      {currentPage === 'menus' && <Menu />}
-      {currentPage === 'selected-menu' && <MenuRecipes />}
       <ToastContainer />
 
     </>
@@ -26,4 +22,3 @@ function App() {
 }
 
 export default App
-

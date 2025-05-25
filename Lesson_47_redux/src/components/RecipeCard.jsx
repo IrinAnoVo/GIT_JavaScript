@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,21 +10,20 @@ import recipesSlice from '../store/recipes.slice';
 import { toast } from 'react-toastify';
 
 // при клике на карточку забрать объект рецепта из массива items и вставить в редаксе поле selectedRecipe
-
 export default function RecipeCard({ recipe }) {
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+
   return (
     <Card sx={{ maxWidth: 500 }}>
       <CardActionArea onClick={() => {
-        dispatch(recipesSlice.actions.setSelectedRecipe(recipe))
+        dispatch(recipesSlice.actions.setSelectedRecipe(recipe));
       }}>
-        <CardMedia 
+        <CardMedia
           component="img"
           height="140"
-          image={recipe.image}   
-          alt={recipe.name}>
-        </CardMedia>
+          image={recipe.image}
+          alt={recipe.name}
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {recipe.name}
@@ -33,15 +31,14 @@ export default function RecipeCard({ recipe }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button onClick={() => {
-          toast(`&{recipe.name} added to menu`)
-        }}
-        size="small" color="primary">
-          Add to Menu
+        <Button
+          onClick={() => {
+            toast(`${recipe.name} added to menu`)
+          }}
+          size="small" color="primary">
+          Add to menu
         </Button>
       </CardActions>
-    </Card>    
-  )
-};
- 
- 
+    </Card>
+  );
+}
