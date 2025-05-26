@@ -5,10 +5,10 @@ export const getMenu = createAsyncThunk(
     "menu/getMenu",
     async () => {
         try {
-            const result = await fetch('https://dummyjson.com/recipes/add')
+            const result = await fetch('https://dummyjson.com/recipes')
             const data = await result.json();
 
-            return data;            
+            return data.recipes;            
         }
         catch (error) {
             console.log("Error fetching menu:", error);            
@@ -31,10 +31,10 @@ const menuSlice = createSlice({
     reducers: {       
     },  
     selectors: {
-        getAllMenu: (state) => {
+        /*getAllMenu: (state) => {
           console.log("getAllMenu selector called with:", state)
           return state.items;
-        }
+        }*/
     },
     extraReducers: (builder) => {
         builder

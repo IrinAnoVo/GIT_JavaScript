@@ -1,13 +1,13 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import menuSlice, { getMenu } from "../store/menu.slice";
+import { getMenu, getMenuStatus, selectedMenu } from "../store/menu.slice";
 
 export default function Menu() {
     const dispatch = useDispatch()
-    const menu = useSelector(menuSlice.selectors.getAllMenu)    
-    const status = useSelector((state) => state.menu.status)
-    
+    const menu = useSelector(selectedMenu)    
+    const status = useSelector(getMenuStatus)
+
     useEffect(() => {
         dispatch(getMenu())
     }, [dispatch]) 
@@ -20,10 +20,10 @@ export default function Menu() {
                 <TableHead>
                 <TableRow>
                     <TableCell>Recipe Name</TableCell>
-                    <TableCell align="right">Ingredients</TableCell>
-                    <TableCell align="right">Instructions</TableCell>
-                    <TableCell align="right">Calories</TableCell>
-                    <TableCell align="right">Rating</TableCell>
+                    <TableCell align="left">Ingredients</TableCell>
+                    <TableCell align="left">Instructions</TableCell>
+                    <TableCell align="left">Calories</TableCell>
+                    <TableCell align="left">Rating</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -35,10 +35,10 @@ export default function Menu() {
                 <TableCell component="th" scope="row">
                 {recipe.name}
                 </TableCell>
-                <TableCell align="right">{recipe.ingredients.join(", ")}</TableCell>
-                <TableCell align="right">{recipe.instructions}</TableCell>
-                <TableCell align="right">{recipe.calories}</TableCell>
-                <TableCell align="right">{recipe.rating}</TableCell>
+                <TableCell align="left">{recipe.ingredients.join(", ")}</TableCell>
+                <TableCell align="left">{recipe.instructions}</TableCell>
+                <TableCell align="left">{recipe.caloriesPerServing}</TableCell>
+                <TableCell align="left">{recipe.rating}</TableCell>
                 </TableRow>
             ))}
         </TableBody>
