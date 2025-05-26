@@ -10,7 +10,7 @@ export default function CategoryRecipes() {
   return (
     <>
       {status && <h1>Loading...</h1>}
-      <Grid container spacing={2} columns={5}>
+      <Grid container spacing={2} columns={4}>
         {recipes.map((recipe) => (
           <Grid key={recipe.id} size={1}>
             <RecipeCard recipe={recipe} />
