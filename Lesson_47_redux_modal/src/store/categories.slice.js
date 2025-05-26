@@ -24,7 +24,7 @@ const categoriesSlice = createSlice({
   name: "categories",
   initialState: {
     items: [],
-    status: "idle", // pending, success, error 
+    status: "idle", // pending, success, error
   },
   reducers: {
   },

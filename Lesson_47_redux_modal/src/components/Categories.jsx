@@ -32,7 +32,7 @@ export default function Categories() {
                 textAlign: "center",
                 "&:hover": {
                   backgroundColor: "lightblue",
-                  color: "white", 
+                  color: "white",
                   cursor: "pointer"
                 },
                 fontSize: "22px",
