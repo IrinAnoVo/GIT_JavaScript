@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import menuSlice, { getMenu } from "../store/menu.slice";
 
 export default function Menu() {
-    const menu = useSelector(menuSlice.selectors.getAllRecipes)
     const dispatch = useDispatch()
+    const menu = useSelector(menuSlice.selectors.getAllMenu)    
     const status = useSelector((state) => state.menu.status)
     
     useEffect(() => {
         dispatch(getMenu())
-    }, [dispatch])
+    }, [dispatch]) 
 
     return ( 
         <>
@@ -19,7 +19,7 @@ export default function Menu() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>Recipes</TableCell>
+                    <TableCell>Recipe Name</TableCell>
                     <TableCell align="right">Ingredients</TableCell>
                     <TableCell align="right">Instructions</TableCell>
                     <TableCell align="right">Calories</TableCell>

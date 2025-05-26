@@ -29,10 +29,11 @@ const menuSlice = createSlice({
         status: "idle",
     },
     reducers: {       
-    }, 
+    },  
     selectors: {
-        getAllMenu: function (state) {
-            return state.items;            
+        getAllMenu: (state) => {
+          console.log("getAllMenu selector called with:", state)
+          return state.items;
         }
     },
     extraReducers: (builder) => {
@@ -49,5 +50,8 @@ const menuSlice = createSlice({
           })
       }
     })
-    
+
+
+export const selectedMenu = (state) => state.menu.items;
+export const getMenuStatus = (state) => state.menu.status;
 export default menuSlice;
