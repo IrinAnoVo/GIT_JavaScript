@@ -21,7 +21,7 @@ export const getMenu = createAsyncThunk(
     },
   }
 )
-
+ 
 const menuSlice = createSlice({
     name: "menu",
     initialState: {

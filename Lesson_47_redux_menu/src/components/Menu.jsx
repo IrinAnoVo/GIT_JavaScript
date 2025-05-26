@@ -1,8 +1,7 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import menuSlice, { getMenu } from "../store/menu.slice";
-import { setCurrentPage } from "../store/page.slice"
 
 export default function Menu() {
     const menu = useSelector(menuSlice.selectors.getAllRecipes)
@@ -13,33 +12,33 @@ export default function Menu() {
         dispatch(getMenu())
     }, [dispatch])
 
-    return (
+    return ( 
         <>
         {status === 'pending' && <h1>Loading...</h1>}
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>Dessert (100g serving)</TableCell>
+                    <TableCell>Recipes</TableCell>
+                    <TableCell align="right">Ingredients</TableCell>
+                    <TableCell align="right">Instructions</TableCell>
                     <TableCell align="right">Calories</TableCell>
-                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                    <TableCell align="right">Rating</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {rows.map((row) => (
+                {menu.map((recipe) => (
                 <TableRow
-                key={row.name}
+                key={recipe.name}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                 <TableCell component="th" scope="row">
-                {row.name}
+                {recipe.name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell align="right">{recipe.ingredients.join(", ")}</TableCell>
+                <TableCell align="right">{recipe.instructions}</TableCell>
+                <TableCell align="right">{recipe.calories}</TableCell>
+                <TableCell align="right">{recipe.rating}</TableCell>
                 </TableRow>
             ))}
         </TableBody>

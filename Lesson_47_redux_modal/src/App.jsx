@@ -5,6 +5,7 @@ import { getCurrentPage } from "./store/page.slice"
 import Categories from "./components/Categories"
 import CategoryRecipes from "./components/CategoryRecipes"
 import { ToastContainer } from "react-toastify"
+import RecipeModal from "./components/RecipeModal"
 
 function App() {
   const currentPage = useSelector(getCurrentPage)
@@ -15,6 +16,7 @@ function App() {
       {currentPage === 'recipes' && <Recipes />}
       {currentPage === 'categories' && <Categories />}
       {currentPage === 'selected-category' && <CategoryRecipes />}
+      <RecipeModal />
       <ToastContainer />
 
     </>
