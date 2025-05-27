@@ -5,9 +5,11 @@ import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setCurrentPage } from '../store/page.slice';
+import { useTranslation } from 'react-i18next';
 
 export default function NavBar() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();             //i18n для инициализации переводов
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -16,18 +18,17 @@ export default function NavBar() {
             onClick={() => {
               dispatch(setCurrentPage('recipes'))
             }}
-            color="inherit">All Recipes</Button>
+            color="inherit">{t("All Recipes")}</Button>              {/*i18n для инициализации переводов*/}
           <Button
             onClick={() => {
               dispatch(setCurrentPage('categories'))
             }}
-            color="inherit">Categories</Button>
-          <Button
-            color="inherit"
+            color="inherit">{t("Categories")}</Button>
+          <Button            
             onClick={() => {
               dispatch(setCurrentPage('menu'))
             }}
-          >Menu</Button>
+            color="inherit">{t("Menu")}</Button>
           <TextField
             id="standard-search"
             label="Search field"

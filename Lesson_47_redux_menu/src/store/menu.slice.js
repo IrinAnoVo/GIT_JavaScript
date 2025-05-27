@@ -20,7 +20,7 @@ export const getMenu = createAsyncThunk(
       if (status !== "idle") return false; // Если статус не idle, то ничего не делать
     },
   }
-)
+) 
  
 const menuSlice = createSlice({
     name: "menu",
@@ -28,7 +28,10 @@ const menuSlice = createSlice({
         items: [],
         status: "idle",
     },
-    reducers: {       
+    reducers: { 
+         addToMenu: (state, action) => {
+            state.items.push(action.payload);       // добавляем рецепт в меню (добавляем рецепт при клике на кнопку Add to menu в карточке рецепта)
+        },   
     },  
     selectors: {
         /*getAllMenu: (state) => {
@@ -49,7 +52,7 @@ const menuSlice = createSlice({
             state.status = 'error'
           })
       }
-    })
+    }) 
 
 
 export const selectedMenu = (state) => state.menu.items;

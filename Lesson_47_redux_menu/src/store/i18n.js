@@ -4,13 +4,19 @@ import { initReactI18next } from 'react-i18next'
 const resources = {
   en: {
     translation: {
-      "Recipe": "Recipe",
+      "All Recipes": "All Recipes",
+      "Categories": "Categories",
+      "Menu": "Menu",
+      "Add to menu": "Add to menu",
       // другие тексты
     },
   },
   ru: {
     translation: {
-      "Recipe": "Рецепт",
+      "All Recipes": "Все Рецепты",
+      "Categories": "Категории",
+      "Menu": "Меню",
+      "Add to menu": "Добавить в меню",
       // другие переводы
     },
   },

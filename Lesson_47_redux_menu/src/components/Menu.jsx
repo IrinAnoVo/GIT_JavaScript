@@ -1,21 +1,22 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMenu, getMenuStatus, selectedMenu } from "../store/menu.slice";
+import { useSelector } from "react-redux";
+import { getMenuStatus, selectedMenu } from "../store/menu.slice";
 
 export default function Menu() {
-    const dispatch = useDispatch()
+    /*const dispatch = useDispatch()*/
     const menu = useSelector(selectedMenu)    
     const status = useSelector(getMenuStatus)
 
-    useEffect(() => {
+    /*useEffect(() => {
         dispatch(getMenu())
     }, [dispatch]) 
+    */
 
     return ( 
         <>
         {status === 'pending' && <h1>Loading...</h1>}
         <TableContainer component={Paper}>
+            <h1>My Menu</h1>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
