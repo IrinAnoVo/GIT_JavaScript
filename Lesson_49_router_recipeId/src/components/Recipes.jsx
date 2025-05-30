@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import RecipeCard from "./RecipeCard"
 import { Grid } from "@mui/material"
-import RecipeModal from "./RecipeModal"
 
 export default function Recipes() {
   // Получить список рецептов из состояния Redux с помощью useSelector
@@ -27,7 +26,6 @@ export default function Recipes() {
           </Grid>
         ))}
       </Grid>
-      <RecipeModal />
     </>
   )
 }  

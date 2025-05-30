@@ -11,7 +11,7 @@ export default function Menu() {
         dispatch(getMenu())
     }, [dispatch]) 
     */
-
+ 
     return ( 
         <>
         {status === 'pending' && <h1>Loading...</h1>}

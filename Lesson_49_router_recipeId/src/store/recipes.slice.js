@@ -19,7 +19,21 @@ export const getRecipes = createAsyncThunk(
     },
   }
 )
- 
+
+export const getRecipeById = createAsyncThunk(
+  "recipes/getRecipeById",
+  async (recipeId) => {
+    try {
+      const result = await fetch(`https://dummyjson.com/recipes/${recipeId}`)
+      const data = await result.json()
+
+      return data
+    } catch (error) {
+      console.error('Error fetching recipe by ID:', error)
+    }
+  }, 
+)
+
 export const getRecipesByCategory = createAsyncThunk(
   "recipes/getRecipesByCategory",
   async (category) => {
@@ -47,7 +61,8 @@ const recipesSlice = createSlice({
     getAllRecipes: function (state) {
       return state.items
     },
-    getByCategory: (state) => state.byCategory
+    getByCategory: (state) => state.byCategory,
+    getSelectedRecipe: (state) => state.selectedRecipe
   },
   reducers: {
     setSelectedRecipe: (state, action) => {
@@ -75,6 +90,16 @@ const recipesSlice = createSlice({
       })
       .addCase(getRecipesByCategory.rejected, (state) => {
         state.loadingByCategory = false
+      })
+      .addCase(getRecipeById.pending, (state) => {
+        state.status = 'pending'
+      })
+      .addCase(getRecipeById.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.selectedRecipe = action.payload
+      })
+      .addCase(getRecipeById.rejected, (state) => {
+        state.status = 'error'
       })
   }
 })

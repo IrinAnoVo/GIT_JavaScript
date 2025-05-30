@@ -1,6 +1,5 @@
 import { Outlet } from "react-router"
 import NavBar from "./NavBar"
-import RecipeModal from "./RecipeModal"
 import { ToastContainer } from "react-toastify"
 
 export default function Layout() {
@@ -8,7 +7,6 @@ export default function Layout() {
         <>
       <NavBar />
       <Outlet />
-      <RecipeModal />
       <ToastContainer /> 
        </>
     )
