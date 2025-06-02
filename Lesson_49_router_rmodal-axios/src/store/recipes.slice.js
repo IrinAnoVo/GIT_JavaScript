@@ -1,4 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
+export const addNewRecipe = createAsyncThunk(
+  "recipes/addNewRecipe",
+  async (recipeData) => {
+    try {
+      const response = await axios.post('https://dummyjson.com/recipes/add', recipeData)
+      return response.data // Возвращаем данные нового рецепта
+    } catch (error) {
+      console.error('Error adding new recipe:', error)
+    }
+  }
+)
 
 export const getRecipes = createAsyncThunk(
   "recipes/getRecipes",
@@ -20,20 +33,6 @@ export const getRecipes = createAsyncThunk(
   }
 )
 
-export const getRecipeById = createAsyncThunk(
-  "recipes/getRecipeById",
-  async (recipeId) => {
-    try {
-      const result = await fetch(`https://dummyjson.com/recipes/${recipeId}`)
-      const data = await result.json()
-
-      return data
-    } catch (error) {
-      console.error('Error fetching recipe by ID:', error)
-    }
-  }, 
-)
-
 export const getRecipesByCategory = createAsyncThunk(
   "recipes/getRecipesByCategory",
   async (category) => {
@@ -46,7 +45,21 @@ export const getRecipesByCategory = createAsyncThunk(
       console.error('Error fetching recipes by category:', error)
     }
   }
-) 
+)
+
+export const getRecipeById = createAsyncThunk(
+  "recipes/getRecipeById",
+  async (recipeId) => {
+    try {
+      const result = await fetch(`https://dummyjson.com/recipes/${recipeId}`)
+      const data = await result.json()
+
+      return data
+    } catch (error) {
+      console.error('Error fetching recipe by id:', error)
+    }
+  }
+)
 
 const recipesSlice = createSlice({
   name: 'recipes',
@@ -55,7 +68,7 @@ const recipesSlice = createSlice({
     status: 'idle', // pending, success, error
     selectedRecipe: null, // Для хранения выбранного рецепта
     byCategory: [], // Рецепты выбранной категории
-    loadingByCategory: false
+    loadingByCategory: false,
   },
   selectors: {
     getAllRecipes: function (state) {
@@ -91,15 +104,11 @@ const recipesSlice = createSlice({
       .addCase(getRecipesByCategory.rejected, (state) => {
         state.loadingByCategory = false
       })
-      .addCase(getRecipeById.pending, (state) => {
-        state.status = 'pending'
-      })
       .addCase(getRecipeById.fulfilled, (state, action) => {
-        state.status = 'success'
         state.selectedRecipe = action.payload
       })
-      .addCase(getRecipeById.rejected, (state) => {
-        state.status = 'error'
+      .addCase(addNewRecipe.fulfilled, (state, action) => {
+        state.items.push(action.payload)
       })
   }
 })

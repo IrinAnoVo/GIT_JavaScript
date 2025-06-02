@@ -5,12 +5,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import menuSlice from '../store/menu.slice';         // импортируем слайс меню, чтобы использовать его в компоненте
 import { Link } from 'react-router';
 
 // при клике на карточку забрать объект рецепта из массива items и вставить в редаксе поле selectedRecipe
 export default function RecipeCard({ recipe }) {
- 
+  const dispatch = useDispatch();
+  
+
   return (
     <Card sx={{ maxWidth: 500, height: '100%' }}>
       <CardActionArea sx={{ height: '250px' }}>
@@ -32,6 +36,7 @@ export default function RecipeCard({ recipe }) {
         <Button
           onClick={() => {
             toast(`${recipe.name} added to menu`)
+            dispatch(menuSlice.actions.addToMenu(recipe))       // добавляем рецепт в меню, без добавления запроса на рецепты в редюсерах в menu.slice
           }}
           size="small" color="primary">Add to menu</Button>
       </CardActions>
