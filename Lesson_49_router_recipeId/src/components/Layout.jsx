@@ -1,13 +1,20 @@
-import { Outlet } from "react-router"
-import NavBar from "./NavBar"
-import { ToastContainer } from "react-toastify"
+import NavBar from './NavBar.jsx';
+import { ToastContainer } from 'react-toastify';
+import { Outlet } from 'react-router';
+import NewRecipeModal from './NewRecipeModal.jsx';
+import { useState } from 'react';
 
 export default function Layout() {
-    return(
-        <>
-      <NavBar />
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <>
+      <NavBar handleOpen={handleOpen} />
       <Outlet />
-      <ToastContainer /> 
-       </>
-    )
-} 
+      <ToastContainer />
+      <NewRecipeModal open={open} handleClose={handleClose} />
+    </>
+  )
+}

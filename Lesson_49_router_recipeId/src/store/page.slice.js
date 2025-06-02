@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
  
 const pageSlice = createSlice({
-  name: "page",
+  name: "tab",
   initialState: {
     currentPage: "recipes", // recipes, categories, selected-recipe, menu, selected-category
   },
@@ -13,8 +13,8 @@ const pageSlice = createSlice({
       state.currentPage = action.payload;
     },
   }
-})
- 
+});
+
 export const { getCurrentPage } = pageSlice.selectors;
 export const { setCurrentPage } = pageSlice.actions;
 export default pageSlice;
