@@ -94,6 +94,7 @@ export default function NewRecipeModal({ open, handleClose }) {
             </Grid>
           </Box>
 
+{/* инструкция к полям модального окна */}
           <TextField
             fullWidth
             {...register("image", {
